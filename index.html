@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="node_modules/moment/min/moment-with-locales.min.js"></script>
+</head>
+
+<body>
+    <!-- login form -->
+    <div id="login-form">
+        <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+            </div>
+            <input id="user-name" type="text" class="form-control" placeholder="Username" aria-label="Username"
+                aria-describedby="addon-wrapping">
+        </div>
+        <br>
+        <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+            </div>
+            <input id="user-password" type="password" class="form-control" placeholder="Password" aria-label="Pasword"
+                aria-describedby="addon-wrapping">
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="login()">Sign In</button>
+    </div>
+
+    <!-- filter options -->
+    <div id="tenants-form" class="d-none">
+        <div id="welcome">
+            <!-- <h5>Hello, <span id="user-welcome"></span></h5> -->
+            <span onclick="logout()"><b>Log Out</b></span>
+        </div>
+        <div id="filter-categories">
+            <form class="form-inline">
+                <input id="user-name-search" class="form-control mr-sm-2" type="search" placeholder="Search tenant"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="filterTenantByName()">Search</button>
+            </form>
+            <button id="add-tenant-btn" type="button" class="btn btn-dark" onclick="showPostForm()">Add New Tenant</button>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Filter List By:
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" onclick="showTenantsList()">All tenants</a>
+                    <a class="dropdown-item" href="#" onclick="filterByTenantsHaveDebts()">Tenants that have debts</a>
+                    <a class="dropdown-item" href="#" onclick="filterByTenantsDontHaveDebts()">Tenants that don't have
+                        debts</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- tenants list form -->
+        <ul id="tenants-list" class="list-group">
+            <li id="tenants-list-template" class="list-group-item tenant-name-template-list d-none">
+                <div class="row mx-md-n5">
+                    <span class="col px-md-5 tenant-name"></span>
+                    <span class="col px-md-5 tenant-phone"></span>
+                    <span class="col px-md-5 tenant-address"></span>
+                    <span class="col px-md-5 tenant-debts"></span>
+                    <span class="col px-md-5 tenant-debts"></span>
+                    <span id="curd-btns" class="col px-md-5">
+                        <button type="button" class="btn btn-secondary btn-sm edit-tenant" onclick="showEditForm(this.parentNode.parentNode.parentNode.id)">EDIT</button>
+                        <button type="button" class="btn btn-secondary btn-sm delete-tenant" onclick="deleteTenant(this.parentNode.parentNode.parentNode.id)">DELETE</button>
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- edit tenant form -->
+    <div id="edit-tenant-form" class="d-none">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name: </label>
+            <input id="edit-name" type="text" class="form-control" placeholder="Enter full name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Phone Number: </label>
+            <input id="edit-number" type="tel" class="form-control" placeholder="Enter phone number" pattern="[0-9]{3}-[0-9]{7}"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Address: </label>
+            <input id="edit-address" type="text" class="form-control" placeholder="Enter address">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="edit-debts">
+            <label class="form-check-label" for="exampleCheck1">Debts</label>
+        </div>
+
+        <button id="save-btn" type="submit" class="btn btn-primary" data-tenant-id="" onclick="editTenant()">Save</button>
+    </div>
+
+    <!-- add tenant form -->
+    <div id="post-tenant-form" class="d-none">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name: </label>
+            <input id="post-name" type="text" class="form-control" placeholder="Enter full name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Phone Number: </label>
+            <input id="post-number" type="tel" class="form-control" placeholder="Enter phone number" pattern="[0-9]{3}-[0-9]{7}"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Address: </label>
+            <input id="post-address" type="text" class="form-control" placeholder="Enter address">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="post-debts">
+            <label class="form-check-label" for="exampleCheck1">Debts</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" data-tenant-id="" onclick="addTenant()">Save</button>
+    </div>
+
+    <!-- error essage page -->
+    <div id="error-form" class="d-none">
+        <h1 id="error-message"></h1>
+    </div>
+
+    <script src="javascript/initDomElements.js"></script>
+    <script src="javascript/tenants.js"></script>
+    <script src="javascript/filterOperations.js"></script>
+    <script src="javascript/user.js"></script>
+</body>
+</html>

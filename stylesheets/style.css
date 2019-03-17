@@ -1,0 +1,90 @@
+div#login-form {
+    text-align: center;
+    width: 50%;
+    position: absolute;
+    left: 351px;
+    top: 148px;
+}
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    width: 50%;
+    position: absolute;
+    top: 202px;
+    left: 339px;
+}
+
+.tenant-name,
+.tenant-phone,
+.tenant-address,
+.tenant-debts
+ {
+    display: inline-block;
+}
+
+span#curd-btns {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-right: -585px;
+}
+
+.dropdown, .dropleft, .dropright, .dropup {
+    position: relative;
+    top: -45px;
+}
+
+div#filter-categories {
+    width: 50%;
+    position: absolute;
+    top: 86px;
+    left: 339px;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    width: 786px;
+}
+
+div#edit-tenant-form,
+div#post-tenant-form{
+    width: 20%;
+    margin-top: 68px;
+    margin-left: 584px;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    width: 63%;
+}
+
+.form-inline {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    left: 269px;
+    top: 11px;
+}
+
+button#add-tenant-btn {
+    position: absolute;
+    left: 564px;
+    top: 11px;
+}
+
+div#welcome {
+    margin-left: 20px;
+    margin-top: 17px;
+}
