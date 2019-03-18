@@ -116,6 +116,7 @@
         }
         $tenant.classList.remove("d-none");
         $tenantsForm.classList.remove("d-none");
+//TODO: inefficient dom query (-5) -- you query for this element in every iteration of the loop(filterTenantByName)
         document.querySelector("#tenants-list").appendChild($tenant);
     }
 }

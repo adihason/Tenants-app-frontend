@@ -1,4 +1,4 @@
-
+//It's all in the global scope (-10)
 const $template = document.querySelector(".tenant-name-template-list");
 const $loginForm = document.querySelector("#login-form");
 const $tenantsForm = document.querySelector("#tenants-form");

@@ -30,6 +30,7 @@ function filterTenantByName() {
     fetch(route(`tenants`))
         .then(res => res.json())
         .then(resJsonBody => {
+            //TODO: inefficient dom query (-5)
             document.querySelector("#tenants-list").innerHTML = '';
             for (let i = 0; i < resJsonBody.length; i++) {
                 if (resJsonBody[i].name === $userNameSearch.value) {
